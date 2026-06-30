@@ -8,7 +8,10 @@ interface StoryCardProps {
 
 export default function StoryCard({ data }: StoryCardProps) {
   return (
-    <div className="relative h-[720px] w-[405px] overflow-hidden rounded-[42px] shadow-[0_70px_140px_rgba(0,0,0,.80)]">
+    <div
+      id="story-card"
+      className="relative h-[720px] w-[405px] overflow-hidden rounded-[42px] shadow-[0_70px_140px_rgba(0,0,0,.80)]"
+    >
       <Image
         src={data.background}
         alt="Background"
@@ -36,7 +39,7 @@ export default function StoryCard({ data }: StoryCardProps) {
 
         <div className="relative mt-8">
           <h2 className="mb-3 text-sm font-medium text-white/90">
-          TOP ARTISTAS
+            TOP ARTISTAS
           </h2>
 
           <ol className="space-y-3 text-sm">
@@ -51,9 +54,7 @@ export default function StoryCard({ data }: StoryCardProps) {
           </ol>
         </div>
 
-        <div className="relative mt-10"></div>
-
-        <div className="relative">
+        <div className="relative mt-10">
           <h2 className="mb-3 text-sm font-medium text-white/90">
             TOP MÚSICAS
           </h2>

@@ -6,11 +6,15 @@ export default function Header() {
   async function handleDownload() {
     const element = document.getElementById("story-card");
 
-    if (!element) return;
+    if (!element) {
+      alert("Não encontrei a cápsula para baixar.");
+      return;
+    }
 
     const dataUrl = await toPng(element, {
       cacheBust: true,
       pixelRatio: 3,
+      backgroundColor: "transparent",
     });
 
     const link = document.createElement("a");
@@ -20,7 +24,7 @@ export default function Header() {
   }
 
   return (
-    <header className="h-16 border-b border-zinc-800 bg-zinc-950 px-6 flex items-center justify-between">
+    <header className="flex h-16 items-center justify-between border-b border-zinc-800 bg-zinc-950 px-6">
       <h1 className="text-xl font-bold tracking-tight">
         Quile<span className="text-red-500">.Fm</span>
       </h1>
