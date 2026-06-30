@@ -1,35 +1,17 @@
 import { StoryData } from "@/types/story";
 
 export const mockStory: StoryData = {
-  username: "pedro",
+  username: "",
 
   period: "12month",
 
-  scrobbles: 52324,
+  scrobbles: 0,
 
   background: "/images/default-story.jpg",
 
-  artists: [
-    "Björk",
-    "Arca",
-    "Charli xcx",
-    "Caroline Polachek",
-    "FKA twigs",
-  ],
+  artists: [],
 
-  tracks: [
-    "Pagan Poetry",
-    "Hyperballad",
-    "Undo",
-    "Hidden Place",
-    "Jóga",
-  ],
+  tracks: [],
 
-  albums: [
-    "Homogenic",
-    "Vespertine",
-    "Post",
-    "Volta",
-    "Debut",
-  ],
+  albums: [],
 };
