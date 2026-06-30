@@ -41,8 +41,8 @@ export default function StoryCard({ data }: StoryCardProps) {
       )}
 
       {hasData && (
-        <div className="absolute bottom-10 left-1/2 w-[84%] -translate-x-1/2 rounded-[30px] border border-white/20 bg-white/8 p-8 backdrop-blur-[28px]">
-          <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-b from-white/10 via-transparent to-transparent" />
+        <div className="absolute bottom-10 left-1/2 w-[84%] -translate-x-1/2 rounded-[30px] border border-white/20 bg-black/35 p-8 shadow-[inset_0_1px_0_rgba(255,255,255,.15)]">
+          <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-b from-white/10 via-white/5 to-transparent" />
 
           <div className="relative">
             <p className="text-xs font-medium text-white/90">
