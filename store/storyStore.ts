@@ -6,6 +6,7 @@ interface StoryStore {
   story: StoryData;
   setStory: (story: StoryData) => void;
   updateBackground: (background: string) => void;
+  updateShowProfile: (showProfile: boolean) => void;
 }
 
 export const useStoryStore = create<StoryStore>((set) => ({
@@ -18,6 +19,14 @@ export const useStoryStore = create<StoryStore>((set) => ({
       story: {
         ...state.story,
         background,
+      },
+    })),
+
+  updateShowProfile: (showProfile) =>
+    set((state) => ({
+      story: {
+        ...state.story,
+        showProfile,
       },
     })),
 }));

@@ -63,6 +63,11 @@ export async function getStory(
 
   const topTracks = tracks.toptracks.track ?? [];
 
+  const avatar =
+    user.user.image?.find((img: { size: string }) => img.size === "large")?.[
+      "#text"
+    ] || "";
+
   return {
     username: user.user.name,
     period,
@@ -77,6 +82,8 @@ export async function getStory(
           ),
 
     background: "/images/default-story.jpg",
+    avatar,
+    showProfile: true,
 
     artists: artists.topartists.artist
       .slice(0, 5)

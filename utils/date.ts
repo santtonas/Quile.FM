@@ -1,4 +1,4 @@
-export function formatStoryDate() {
+export function formatStoryDateFromDate(date: Date) {
   const months = [
     "jan",
     "fev",
@@ -14,9 +14,11 @@ export function formatStoryDate() {
     "dez",
   ];
 
-  const date = new Date();
-
   return `${String(date.getDate()).padStart(2, "0")} ${
     months[date.getMonth()]
   } ${date.getFullYear()}`;
+}
+
+export function formatStoryDate() {
+  return formatStoryDateFromDate(new Date());
 }

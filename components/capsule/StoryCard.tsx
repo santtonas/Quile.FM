@@ -1,5 +1,6 @@
 import { StoryData } from "@/types/story";
 import { formatStoryDate } from "@/utils/date";
+import { getPeriodRange } from "@/utils/period";
 
 interface StoryCardProps {
   data: StoryData;
@@ -50,6 +51,30 @@ export default function StoryCard({
         <div className="absolute bottom-10 left-1/2 w-[84%] -translate-x-1/2 rounded-[30px] border border-white/20 bg-[rgba(18,18,18,0.22)] p-8 shadow-[0_10px_40px_rgba(0,0,0,.18)]">
           <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-b from-white/20 via-white/5 to-transparent" />
 
+          {data.showProfile && data.username && (
+            <div className="relative mt-4 mb-6 flex items-center gap-3">
+              {data.avatar && (
+                <img
+                  src={data.avatar}
+                  alt={data.username}
+                  className="h-10 w-10 rounded-full object-cover"
+                  crossOrigin="anonymous"
+                  draggable={false}
+                />
+              )}
+
+              <p className="text-sm font-medium text-white/80">
+                {data.username}
+              </p>
+            </div>
+          )}
+
+<div className="relative mb-5">
+  <p className="text-xs uppercase tracking-[0.22em] text-white/55">
+    {getPeriodRange(data.period)}
+  </p>
+</div>
+
           <div className="relative">
             <p className="text-xs font-medium text-white/90">
               Total de scrobbles
@@ -71,6 +96,7 @@ export default function StoryCard({
                   <span className="w-6 text-white/35">
                     {String(index + 1).padStart(2, "0")}
                   </span>
+
                   <span className="font-medium">{artist}</span>
                 </li>
               ))}
@@ -88,6 +114,7 @@ export default function StoryCard({
                   <span className="w-6 text-white/35">
                     {String(index + 1).padStart(2, "0")}
                   </span>
+
                   <span className="font-medium">{track}</span>
                 </li>
               ))}
