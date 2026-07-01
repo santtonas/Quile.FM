@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { StoryData } from "@/types/story";
 import { formatStoryDate } from "@/utils/date";
 
@@ -22,12 +21,11 @@ export default function StoryCard({
           : "rounded-[42px] shadow-[0_70px_140px_rgba(0,0,0,.80)]"
       }`}
     >
-      <Image
-        src={data.background}
+      <img
+        src={data.background || "/images/default-story.jpg"}
         alt="Background"
-        fill
-        priority
-        className="object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
+        draggable={false}
       />
 
       <div className="absolute inset-0 bg-black/20" />
