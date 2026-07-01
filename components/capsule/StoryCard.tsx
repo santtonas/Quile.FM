@@ -10,10 +10,7 @@ export default function StoryCard({ data }: StoryCardProps) {
   const hasData = data.artists.length > 0 || data.tracks.length > 0;
 
   return (
-    <div
-      id="story-card"
-      className="relative h-[720px] w-[405px] overflow-hidden rounded-[42px] shadow-[0_70px_140px_rgba(0,0,0,.80)]"
-    >
+    <div>
       <Image
         src={data.background}
         alt="Background"
@@ -41,8 +38,14 @@ export default function StoryCard({ data }: StoryCardProps) {
       )}
 
       {hasData && (
-        <div className="absolute bottom-10 left-1/2 w-[84%] -translate-x-1/2 rounded-[30px] border border-white/20 bg-black/35 p-8 shadow-[inset_0_1px_0_rgba(255,255,255,.15)]">
-          <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-b from-white/10 via-white/5 to-transparent" />
+      <div  className="absolute bottom-10 left-1/2 w-[84%] -translate-x-1/2 rounded-[30px]
+        border border-white/20
+        bg-[rgba(18,18,18,0.22)]
+        p-8
+        shadow-[0_10px_40px_rgba(0,0,0,.18)]">
+
+
+          <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-b from-white/20 via-white/5 to-transparent" />
 
           <div className="relative">
             <p className="text-xs font-medium text-white/90">

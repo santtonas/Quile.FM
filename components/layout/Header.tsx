@@ -2,25 +2,68 @@
 
 import { toPng } from "html-to-image";
 
+async function waitForImages(element: HTMLElement) {
+  const images = Array.from(element.querySelectorAll("img"));
+
+  await Promise.all(
+    images.map((img) => {
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+
+      return new Promise<void>((resolve) => {
+        img.onload = () => resolve();
+        img.onerror = () => resolve();
+      });
+    })
+  );
+}
+
 export default function Header() {
   async function handleDownload() {
-    const element = document.getElementById("story-card");
+    try {
+      const element = document.getElementById("story-card");
 
-    if (!element) {
-      alert("Não encontrei a cápsula para baixar.");
-      return;
+      if (!element) {
+        alert("Não encontrei a cápsula para baixar.");
+        return;
+      }
+
+      await waitForImages(element);
+
+      const dataUrl = await toPng(element, {
+        cacheBust: true,
+        pixelRatio: 3,
+        backgroundColor: "#000000",
+      });
+
+      const response = await fetch(dataUrl);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "quile-fm-story.png";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+    } catch (error) {
+      alert(
+        "Não consegui baixar automaticamente. Toque e segure na imagem para salvar."
+      );
+
+      const element = document.getElementById("story-card");
+
+      if (!element) return;
+
+      const dataUrl = await toPng(element, {
+        cacheBust: true,
+        pixelRatio: 3,
+        backgroundColor: "#000000",
+      });
+
+      window.open(dataUrl, "_blank");
     }
-
-    const dataUrl = await toPng(element, {
-      cacheBust: true,
-      pixelRatio: 3,
-      backgroundColor: "transparent",
-    });
-
-    const link = document.createElement("a");
-    link.download = "quile-fm-story.png";
-    link.href = dataUrl;
-    link.click();
   }
 
   return (
