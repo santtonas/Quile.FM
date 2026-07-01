@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { StoryData } from "@/types/story";
-import { formatStoryDate } from "@/Utils/date";
+import { formatStoryDate } from "@/utils/date";
 
 interface StoryCardProps {
   data: StoryData;
