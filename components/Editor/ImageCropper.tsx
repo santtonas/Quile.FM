@@ -12,35 +12,41 @@ interface ImageCropperProps {
 function createImage(url: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const image = new Image();
-    image.addEventListener("load", () => resolve(image));
-    image.addEventListener("error", reject);
+
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+
     image.src = url;
   });
 }
 
 async function getCroppedImage(imageSrc: string, crop: Area) {
   const image = await createImage(imageSrc);
+
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
   if (!ctx) return imageSrc;
 
-  canvas.width = crop.width;
-  canvas.height = crop.height;
+  canvas.width = 1080;
+  canvas.height = 1920;
+
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.drawImage(
     image,
-    crop.x,
-    crop.y,
-    crop.width,
-    crop.height,
+    Math.round(crop.x),
+    Math.round(crop.y),
+    Math.round(crop.width),
+    Math.round(crop.height),
     0,
     0,
-    crop.width,
-    crop.height
+    canvas.width,
+    canvas.height
   );
 
-  return canvas.toDataURL("image/jpeg");
+  return canvas.toDataURL("image/jpeg", 0.92);
 }
 
 export default function ImageCropper({

@@ -1,8 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { StoryData } from "@/types/story";
 import { formatStoryDate } from "@/utils/date";
-import { getPeriodRange } from "@/utils/period";
 
 interface StoryCardProps {
   data: StoryData;
@@ -55,11 +52,12 @@ export default function StoryCard({
 
           {data.showProfile && data.username && (
             <div className="relative mt-4 mb-6 flex items-center gap-3">
-              {!exportMode && data.avatar && (
+              {data.avatar && (
                 <img
                   src={data.avatar}
                   alt={data.username}
                   className="h-10 w-10 rounded-full object-cover"
+                  crossOrigin="anonymous"
                   draggable={false}
                 />
               )}
@@ -69,12 +67,6 @@ export default function StoryCard({
               </p>
             </div>
           )}
-
-          <div className="relative mb-5">
-            <p className="text-xs uppercase tracking-[0.22em] text-white/55">
-              {getPeriodRange(data.period)}
-            </p>
-          </div>
 
           <div className="relative">
             <p className="text-xs font-medium text-white/90">
