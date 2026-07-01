@@ -67,11 +67,14 @@ export async function getStory(
     username: user.user.name,
     period,
 
-    scrobbles: topTracks.reduce(
-      (total: number, track: { playcount: string }) =>
-        total + Number(track.playcount),
-      0
-    ),
+    scrobbles:
+      period === "overall"
+        ? Number(user.user.playcount)
+        : topTracks.reduce(
+            (total: number, track: { playcount: string }) =>
+              total + Number(track.playcount),
+            0
+          ),
 
     background: "/images/default-story.jpg",
 
