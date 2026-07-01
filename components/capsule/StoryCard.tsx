@@ -1,16 +1,27 @@
 import Image from "next/image";
 import { StoryData } from "@/types/story";
-import { formatStoryDate } from "@/utils/date";
+import { formatStoryDate } from "@/Utils/date";
 
 interface StoryCardProps {
   data: StoryData;
+  exportMode?: boolean;
 }
 
-export default function StoryCard({ data }: StoryCardProps) {
+export default function StoryCard({
+  data,
+  exportMode = false,
+}: StoryCardProps) {
   const hasData = data.artists.length > 0 || data.tracks.length > 0;
 
   return (
-    <div>
+    <div
+      id={exportMode ? "story-card-export" : "story-card-preview"}
+      className={`relative h-[800px] w-[450px] overflow-hidden bg-black ${
+        exportMode
+          ? ""
+          : "rounded-[42px] shadow-[0_70px_140px_rgba(0,0,0,.80)]"
+      }`}
+    >
       <Image
         src={data.background}
         alt="Background"
@@ -38,13 +49,7 @@ export default function StoryCard({ data }: StoryCardProps) {
       )}
 
       {hasData && (
-      <div  className="absolute bottom-10 left-1/2 w-[84%] -translate-x-1/2 rounded-[30px]
-        border border-white/20
-        bg-[rgba(18,18,18,0.22)]
-        p-8
-        shadow-[0_10px_40px_rgba(0,0,0,.18)]">
-
-
+        <div className="absolute bottom-10 left-1/2 w-[84%] -translate-x-1/2 rounded-[30px] border border-white/20 bg-[rgba(18,18,18,0.22)] p-8 shadow-[0_10px_40px_rgba(0,0,0,.18)]">
           <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-b from-white/20 via-white/5 to-transparent" />
 
           <div className="relative">

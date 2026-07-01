@@ -1,6 +1,8 @@
 "use client";
 
 import { toPng } from "html-to-image";
+import StoryCard from "@/components/capsule/StoryCard";
+import { useStoryStore } from "@/store/storyStore";
 
 async function waitForImages(element: HTMLElement) {
   const images = Array.from(element.querySelectorAll("img"));
@@ -18,9 +20,11 @@ async function waitForImages(element: HTMLElement) {
 }
 
 export default function Header() {
+  const story = useStoryStore((state) => state.story);
+
   async function handleDownload() {
     try {
-      const element = document.getElementById("story-card");
+      const element = document.getElementById("story-card-export");
 
       if (!element) {
         alert("Não encontrei a cápsula para baixar.");
@@ -31,7 +35,7 @@ export default function Header() {
 
       const dataUrl = await toPng(element, {
         cacheBust: true,
-        pixelRatio: 3,
+        pixelRatio: 2.4,
         backgroundColor: "#000000",
       });
 
@@ -47,37 +51,29 @@ export default function Header() {
       link.remove();
 
       setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-    } catch (error) {
-      alert(
-        "Não consegui baixar automaticamente. Toque e segure na imagem para salvar."
-      );
-
-      const element = document.getElementById("story-card");
-
-      if (!element) return;
-
-      const dataUrl = await toPng(element, {
-        cacheBust: true,
-        pixelRatio: 3,
-        backgroundColor: "#000000",
-      });
-
-      window.open(dataUrl, "_blank");
+    } catch {
+      alert("Não consegui baixar automaticamente. Tente novamente.");
     }
   }
 
   return (
-    <header className="flex h-16 items-center justify-between border-b border-zinc-800 bg-zinc-950 px-6">
-      <h1 className="text-xl font-bold tracking-tight">
-        Quile<span className="text-red-500">.Fm</span>
-      </h1>
+    <>
+      <header className="flex h-16 items-center justify-between border-b border-zinc-800 bg-zinc-950 px-6">
+        <h1 className="text-xl font-bold tracking-tight">
+          Quile<span className="text-red-500">.Fm</span>
+        </h1>
 
-      <button
-        onClick={handleDownload}
-        className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium transition hover:bg-red-600"
-      >
-        Baixar imagem
-      </button>
-    </header>
+        <button
+          onClick={handleDownload}
+          className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium transition hover:bg-red-600"
+        >
+          Baixar imagem
+        </button>
+      </header>
+
+      <div className="fixed -left-[9999px] top-0">
+        <StoryCard data={story} exportMode />
+      </div>
+    </>
   );
 }
